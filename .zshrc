@@ -49,11 +49,15 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
+# Homebrew configuration
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # User configuration
 
 case `uname` in
 "Darwin")
-  export PATH="$HOME/Bin:/opt/homebrew/bin:/opt/homebrew/opt/sphinx-doc/bin:$PATH"
+  export PATH="$HOME/Bin:/opt/homebrew/opt/sphinx-doc/bin:$PATH"
   ;;
 "Linux")
   export PATH="$HOME/.local/bin:$PATH"
