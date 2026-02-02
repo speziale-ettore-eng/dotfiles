@@ -67,6 +67,11 @@ fi
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
+# Use Neovim as pager
+if [ -n `which nvimpager` ]; then
+  export PAGER='nvimpager'
+fi
+
 # Preferred editor for local and remote sessions
 export EDITOR='vim'
 
