@@ -67,14 +67,14 @@ fi
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-if [ -n `which nvimpager` ]; then
+if [ -n `whence -p nvimpager` ]; then
   export PAGER='nvimpager'
 fi
 
 # Use Neovim when available, fallback to vim if not found.
-if [ -n `which nvim` ]; then
+if [ -n `whence -p nvim` ]; then
   export EDITOR='nvim'
-elif [ -n `which vim` ]; then
+elif [ -n `whence -p vim` ]; then
   export EDITOR='vim'
 fi
 
