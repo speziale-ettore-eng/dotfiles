@@ -67,13 +67,16 @@ fi
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Use Neovim as pager
 if [ -n `which nvimpager` ]; then
   export PAGER='nvimpager'
 fi
 
-# Preferred editor for local and remote sessions
-export EDITOR='vim'
+# Use Neovim when available, fallback to vim if not found.
+if [ -n `which nvim` ]; then
+  export EDITOR='nvim'
+elif [ -n `which vim` ]; then
+  export EDITOR='vim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
