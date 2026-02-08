@@ -70,21 +70,21 @@ case `uname` in
   ;;
 esac
 
-if [ -f "$HOME/.tesla/zshrc" ]; then
+if [[ -f "$HOME/.tesla/zshrc" ]]; then
   source "$HOME/.tesla/zshrc"
 fi
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-if [ -n `whence -p nvimpager` ]; then
+if [[ -n `whence -p nvimpager` ]]; then
   export PAGER='nvimpager'
 fi
 
 # Use Neovim when available, fallback to vim if not found.
-if [ -n `whence -p nvim` ]; then
+if [[ -n `whence -p nvim` ]]; then
   export EDITOR='nvim'
-elif [ -n `whence -p vim` ]; then
+elif [[ -n `whence -p vim` ]]; then
   export EDITOR='vim'
 fi
 
