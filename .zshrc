@@ -74,6 +74,14 @@ case `uname` in
   ;;
 esac
 
+# Pyenv configuration
+if [[ -d "$HOME/.pyenv/bin" ]]; then
+  export PATH="$HOME/.pyenv/bin:$PATH"
+fi
+if [[ -n `whence -p pyenv` ]]; then
+  eval "$(pyenv init - zsh)"
+fi
+
 # User configuration
 
 case `uname` in
