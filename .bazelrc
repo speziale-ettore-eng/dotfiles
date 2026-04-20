@@ -1,0 +1,6 @@
+# Make sure there will always be some core left free for interactive users.
+build --jobs HOST_CPUS*.9
+test --local_test_jobs HOST_CPUS:.9
+
+# Tesla specific override.
+try-import ~/.tesla/dusmxl5433yb3.bazelrc
