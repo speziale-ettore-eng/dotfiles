@@ -3,4 +3,4 @@ build --jobs HOST_CPUS*.9
 test --local_test_jobs HOST_CPUS*.9
 
 # Tesla specific override.
-try-import ~/.tesla/dusmxl5433yb3.bazelrc
+try-import /home/espeziale/.tesla/dusmxl5433yb3.bazelrc
