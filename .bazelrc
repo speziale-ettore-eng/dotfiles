@@ -1,3 +1,6 @@
+# Shutdown unused serves after 5 minutes.
+startup --max_idle_secs=300
+
 # Make sure there will always be some core left free for interactive users.
 build --jobs HOST_CPUS*.9
 
