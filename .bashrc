@@ -167,8 +167,10 @@ if [[ -f "$HOME/.tesla/bashrc" ]]; then
   source "$HOME/.tesla/bashrc"
 fi
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+# SSH connections do not set language environment.
+if [[ ! -v LANG ]]; then
+  export LANG=en_US.UTF-8
+fi
 
 if [[ -n `which nvimpager` ]]; then
   export PAGER='nvimpager'

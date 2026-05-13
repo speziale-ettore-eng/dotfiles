@@ -97,8 +97,10 @@ if [[ -f "$HOME/.tesla/zshrc" ]]; then
   source "$HOME/.tesla/zshrc"
 fi
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+# SSH connections do not set language environment.
+if [[ ! -v LANG ]]; then
+  export LANG=en_US.UTF-8
+fi
 
 if [[ -n `whence -p nvimpager` ]]; then
   export PAGER='nvimpager'
