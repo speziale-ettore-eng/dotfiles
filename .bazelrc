@@ -1,8 +1,13 @@
-# Shutdown unused serves after 5 minutes.
-startup --max_idle_secs=300
+# Shutdown unused serves after 10 minutes.
+startup --max_idle_secs=600
 
 # Make sure there will always be some core left free for interactive users.
 build --jobs HOST_CPUS*.9
+
+# Clen up the bazel cache once in a while.
+build --experimental_disk_cache_gc_idle_delay=5m
+build --experimental_disk_cache_gc_max_age=7d
+build --experimental_disk_cache_gc_max_size=512G
 
 # Tesla specific override.
 try-import /home/espeziale/.tesla/dusmxl5433yb3.bazelrc
