@@ -129,6 +129,12 @@ plugins=(
 
 source "$OSH"/oh-my-bash.sh
 
+# Utils to keep this readable
+
+_has_command() {
+  command -v "$1" > /dev/null 2>&1
+}
+
 # Homebrew configuration
 
 case `uname` in
@@ -148,7 +154,7 @@ esac
 if [[ -d "$HOME/.pyenv/bin" ]]; then
   export PATH="$HOME/.pyenv/bin:$PATH"
 fi
-if [[ -n `which pyenv` ]]; then
+if _has_command pyenv; then
   eval "$(pyenv init - zsh)"
 fi
 
@@ -172,14 +178,14 @@ if [[ ! -v LANG ]]; then
   export LANG=en_US.UTF-8
 fi
 
-if [[ -n `which nvimpager` ]]; then
+if _has_command nvimpager; then
   export PAGER='nvimpager'
 fi
 
 # Use Neovim when available, fallback to vim if not found.
-if [[ -n `which nvim` ]]; then
+if _has_command nvim; then
   export EDITOR='nvim'
-elif [[ -n `which vim` ]]; then
+elif _has_command vim; then
   export EDITOR='vim'
 fi
 
@@ -197,3 +203,6 @@ fi
 # Example aliases
 # alias bashconfig="mate ~/.bashrc"
 # alias ohmybash="mate ~/.oh-my-bash"
+
+# Cleanup
+unset -f _has_command
