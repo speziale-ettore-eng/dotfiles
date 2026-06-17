@@ -5,7 +5,7 @@ startup --max_idle_secs=600
 build --jobs HOST_CPUS*.9
 
 # Clean up the bazel cache once in a while.
-build --experimental_disk_cache_gc_idle_delay=5m
+build --experimental_disk_cache_gc_idle_delay=1d
 build --experimental_disk_cache_gc_max_age=7d
 build --experimental_disk_cache_gc_max_size=512G
 
