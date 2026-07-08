@@ -10,7 +10,9 @@ build --experimental_disk_cache_gc_max_age=7d
 build --experimental_disk_cache_gc_max_size=512G
 
 # Use a common external repository cache -- i.e. external repositories shared between multiple worktrees.
-build --repo_contents_cache=/home/espeziale/.cache/bazel/external_repo
+build --disk_cache=/home/espeziale/.cache/bazel/disk
+build --repository_cache=/home/espeziale/.cache/bazel/repo
+build --repo_contents_cache=/home/espeziale/.cache/bazel/repo_contents
 
 # Tesla specific override.
 try-import /home/espeziale/.tesla/dusmxl5433yb3.bazelrc
