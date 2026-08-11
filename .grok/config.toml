@@ -7,3 +7,10 @@ default_skills_installs_purged = true
 
 [ui]
 permission_mode = "ask"
+remember_tool_approvals = true
+
+[permission]
+allow = [
+  "Edit(**/.grok/plugin-data/pr-monitor/**)",
+  "Read(**/.grok/plugin-data/pr-monitor/**)",
+]
