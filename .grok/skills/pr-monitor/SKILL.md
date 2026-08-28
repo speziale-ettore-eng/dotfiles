@@ -91,9 +91,9 @@ For each PR in `watchlist.prs`:
 3. Fetch `isRequired` via GraphQL (see below).
 4. Classify failed required checks from `gh run view <run_id> --repo <host>/<owner>/<repo> --log-failed`.
 5. Apply retrigger policy. Persist the per-PR file and `watchlist.updated_at`.
-6. Short status: what changed or needs attention.
+6. Print the **Status table** (below). Always the full table, not a delta-only bullet list.
 
-**MERGED / CLOSED:** remove from `watchlist.prs`, append to `merged`, persist. If `prs` is empty, `scheduler_list` and delete any task whose prompt contains `pr-monitor`.
+**MERGED / CLOSED:** include the row this cycle, then remove from `watchlist.prs`, append to `merged`, persist. If `prs` is empty, `scheduler_list` and delete any task whose prompt contains `pr-monitor`.
 
 **All required green + MERGEABLE + APPROVED:** report merge-ready. Keep watching until merged.
 
@@ -149,7 +149,39 @@ Classify from failed-job logs:
 | **LATENCY** | Measured vs expected **ms** / latency threshold | Same rerun. Max **2** per `run_id`. After 2 still failing, stop and report persistent. |
 | **CODE** | FileCheck, hash mismatch, SNR assert, compile, clang-tidy finding, test assertion | Report only. **No re-run.** |
 
-Track counts in `pr-<N>.json` (`retrigger_count`, `retriggers[]`, `retrigger_by_run_id`). After a re-run, persist and mention it in the cycle status.
+Track counts in `pr-<N>.json` (`retrigger_count`, `retriggers[]`, `retrigger_by_run_id`). After a re-run, persist and name it in the Status table header and that PR’s Required CI cell.
+
+### Status table
+
+Required output for every check cycle, `list`, and an explicit “status of the PRs you are monitoring” question. One row per watchlist PR (plus any MERGED/CLOSED this cycle).
+
+One-line header: `pr-monitor cycle (<HH:MM>Z <Mon> <D>)` then retrigger count (`no retriggers` or `retriggers: <check> on #<n> (<class>)`). If any PR is merge-ready (all required green + MERGEABLE + APPROVED) or merged this cycle, say so in that header.
+
+Then this markdown table and nothing else as the status body:
+
+```
+| PR | Title | SHA | Review | Merge | Required CI |
+|---|---|---|---|---|---|
+| [owner/repo#n](url) | title | `abcdefgh` | REVIEW_REQUIRED | MERGEABLE / BLOCKED | … |
+```
+
+Fill rules:
+
+- **PR:** `[<owner>/<repo>#<n>](<pr url>)`.
+- **Title:** `title` from `gh pr view`. Replace `|` with `/` so the row stays one cell.
+- **SHA:** first 8 of `headRefOid`, backticks.
+- **Review:** `reviewDecision` as returned. Bold `**APPROVED**`.
+- **Merge:** `<mergeable> / <mergeStateStatus>` (example: `MERGEABLE / BLOCKED`). If `state` is MERGED or CLOSED, put that in Merge and skip mergeable.
+- **Required CI:** required checks only (`isRequired=true`). Lead with failures (`**CODE**` / `**INFRA**` / `**LATENCY**` + check name + one-line cause). Then pending required. Then “rest of required green” if true. Ignore non-required failures. Empty watchlist: no table, say none watching.
+
+Example:
+
+```
+| PR | Title | SHA | Review | Merge | Required CI |
+|---|---|---|---|---|---|
+| [AIHW/trip#1085](https://github-ap.tesla.com/AIHW/trip/pull/1085) | [TRIPv4] Add an int4e5m3 sanity test. | `67963540` | REVIEW_REQUIRED | MERGEABLE / BLOCKED | Elaboration **green**. Simulation and test-ai-soc **still running**. No required fail. |
+| [autonomy/nn-mlir#13703](https://github-ap.tesla.com/autonomy/nn-mlir/pull/13703) | [TRIPv4d] Augment inner product primary store. | `48350eb9` | REVIEW_REQUIRED | MERGEABLE / BLOCKED | Only required fail: **hw4-hw5-specsim CODE** (`test_hybrid_compile_and_eager` assert_close). Rest of required green. |
+```
 
 ### Todos
 
@@ -169,6 +201,8 @@ Do not follow pr-babysit fix/push/review/conflict behavior.
 
 Watchlist: ~/.grok/plugin-data/pr-monitor/watchlist.json
 Per-PR host/repo are on each watchlist entry — pass host via `--repo <host>/<owner>/<repo>` and `--hostname` on `gh api`.
+
+End every cycle with the Status table from the skill (full table, not delta-only bullets).
 
 Currently watching: <host> <owner>/<repo>#<n> ...
 ```
