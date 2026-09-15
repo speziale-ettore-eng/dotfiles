@@ -25,4 +25,5 @@ allow = [
   "Bash(gh run rerun )",
   # UTC timestamps for pr-monitor cycles.
   "Bash(date*)",
+  "Bash(echo *)",
 ]
