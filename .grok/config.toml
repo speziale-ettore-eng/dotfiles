@@ -24,6 +24,7 @@ allow = [
   "Bash(gh api graphql *)",
   "Bash(gh run rerun )",
   # UTC timestamps for pr-monitor cycles.
-  "Bash(date*)",
+  "Bash(date *)",
   "Bash(echo *)",
+  "Bash(find *)",
 ]
