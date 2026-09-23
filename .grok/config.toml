@@ -15,7 +15,7 @@ allow = [
   # ask mode.
   "Edit(**/.grok/plugin-data/pr-monitor/**)",
   "Read(**/.grok/plugin-data/pr-monitor/**)",
-  "Bash(gh auth status*)",
+  "Bash(gh auth status *)",
   "Bash(gh repo view *)",
   "Bash(gh pr view *)",
   "Bash(gh pr checks *)",
@@ -27,4 +27,6 @@ allow = [
   "Bash(date *)",
   "Bash(echo *)",
   "Bash(find *)",
+  # Bazel wrapper script.
+  "Bash(./bazelw *)",
 ]
