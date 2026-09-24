@@ -27,6 +27,7 @@ allow = [
   "Bash(date *)",
   "Bash(echo *)",
   "Bash(find *)",
+  "Bash(head *)",
   "Bash(ls *)",
   # Bazel wrapper script.
   "Bash(./bazelw *)",
