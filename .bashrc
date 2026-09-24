@@ -180,6 +180,7 @@ fi
 
 if _has_command nvimpager; then
   export PAGER='nvimpager'
+  export LESSOPEN='||nvimpager -c %s'
 fi
 
 # Use Neovim when available, fallback to vim if not found.
