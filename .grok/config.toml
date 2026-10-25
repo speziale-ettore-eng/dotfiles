@@ -8,28 +8,31 @@ default_skills_installs_purged = true
 [ui]
 permission_mode = "ask"
 remember_tool_approvals = true
+max_thoughts_width = 120
+fork_secondary_model = "grok-4.6"
+yolo = false
+compact_mode = false
 
 [permission]
 allow = [
-  # Status reads + failed-job retrigger only. Other gh commands still prompt in
-  # ask mode.
-  "Edit(**/.grok/plugin-data/pr-monitor/**)",
-  "Read(**/.grok/plugin-data/pr-monitor/**)",
-  "Bash(gh auth status *)",
-  "Bash(gh repo view *)",
-  "Bash(gh pr view *)",
-  "Bash(gh pr list *)",
-  "Bash(gh pr checks *)",
-  "Bash(gh run view *)",
-  "Bash(gh run list *)",
-  "Bash(gh api graphql *)",
-  "Bash(gh run rerun )",
-  # UTC timestamps for pr-monitor cycles.
-  "Bash(date *)",
-  "Bash(echo *)",
-  "Bash(find *)",
-  "Bash(head *)",
-  "Bash(ls *)",
-  # Bazel wrapper script.
-  "Bash(./bazelw *)",
+    "Edit(**/.grok/plugin-data/pr-monitor/**)",
+    "Read(**/.grok/plugin-data/pr-monitor/**)",
+    "Bash(gh auth status *)",
+    "Bash(gh repo view *)",
+    "Bash(gh pr view *)",
+    "Bash(gh pr list *)",
+    "Bash(gh pr checks *)",
+    "Bash(gh run view *)",
+    "Bash(gh run list *)",
+    "Bash(gh api graphql *)",
+    "Bash(gh run rerun )",
+    "Bash(date *)",
+    "Bash(echo *)",
+    "Bash(find *)",
+    "Bash(head *)",
+    "Bash(ls *)",
+    "Bash(./bazelw *)",
 ]
+
+[plugins]
+enabled = ["tesla"]
